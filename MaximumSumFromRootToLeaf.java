@@ -24,8 +24,8 @@ public class MaximumSumFromRootToLeaf {
 	
 	public static int sum(TreeNode root){
 		
-		rec(root);
-		return max;
+		return recII(root,0);
+		//return max;
 	}
 	
 	public static int max = 0;
@@ -41,6 +41,19 @@ public class MaximumSumFromRootToLeaf {
 		if(root.right!=null) root.right.val = root.val+root.right.val;
 		rec(root.left);
 		rec(root.right);
+	}
+	
+	public static int recII(TreeNode root, int pre){
+		if(root==null) return 0;
+		pre = pre+root.val;
+		if(root.left==null && root.right==null){
+			return pre;
+		}
+		
+		int leftSum = recII(root.left,pre);
+		int rightSum = recII(root.right,pre);
+		
+		return Math.max(leftSum, rightSum);
 	}
 
 }
