@@ -34,7 +34,7 @@ public class MaximumGap {
 			min = Math.min(n, min);
 		}
 		
-		double interval = (max-min)/nums.length;
+		double interval = (double)nums.length/(max-min);
 		
 		for(int n: nums){
 			int index = (int)((n-min)*interval);
@@ -43,13 +43,13 @@ public class MaximumGap {
 				buckets[index].low = n;
 				buckets[index].high = n;
 			}else{
-				buckets[index].low = Math.min(min, n);
-				buckets[index].high = Math.max(max, n);
+				buckets[index].low = Math.min(buckets[index].low, n);
+				buckets[index].high = Math.max(buckets[index].high, n);
 			}
 		}
 		
-		int pre = 0,result = 0;
-		for(int i=0; i<buckets.length; i++){
+		int pre = buckets[0].high,result = 0;
+		for(int i=1; i<buckets.length; i++){
 			if(buckets[i].low!=-1){
 				result = Math.max(result, buckets[i].low-pre);
 				pre = buckets[i].high;
@@ -59,9 +59,5 @@ public class MaximumGap {
 		
 		return result;
 	}
-	
-	
-	
-	
 
 }
